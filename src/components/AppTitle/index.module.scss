@@ -1,0 +1,9 @@
+.appTitle {
+  width: 100%;
+  position: fixed;
+  overflow: hidden;
+  z-index: 999;
+  :gobal(.van-nav-bar) {
+    padding-top: 0 !important;
+  }
+}

@@ -1,0 +1,25 @@
+.input {
+  height: 40px;
+  width: 110px;
+  background-color: red;
+  overflow: hidden;
+  position: absolute;
+  opacity: 0;
+  z-index: 1;
+}
+.inputButton {
+  position: relative;
+}
+.vanUploader {
+  :gobal(.van-uploader__preview) {
+    display: none !important;
+  }
+}
+
+.content{
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  padding-top:50px;
+  height: calc(100vh - 50px);
+}

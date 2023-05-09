@@ -1,0 +1,12 @@
+.mine {
+  height: 100%;
+  overflow: hidden !important;
+  .circle {
+    width: 140%; // 宽度大点，用来隐藏左右比较不平滑的弧度
+    height: 200px; // 通过改变高度，可以调整弧度大小
+    background: #007aff;
+    border-radius: 0 0 50% 50%; // 左下、右下圆角处理
+    margin-left: -20%; // 隐藏左右比较不平滑的弧度，使整体平滑过渡
+  }
+  --cell-line-height: 36px;
+}

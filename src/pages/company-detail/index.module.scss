@@ -1,0 +1,14 @@
+.companyDetail {
+  :global(.van-ellipsis-action) {
+    color: #007aff !important;
+  }
+}
+.contentWEB{
+  padding-top: 50px;
+  overflow-y: auto;
+  height: calc(100vh - 50px);
+}
+.contentWeapp{
+  overflow-y: auto;
+  height: 100vh;
+}

@@ -1,0 +1,11 @@
+.van-pull-to-refresh {
+  &-status {
+    color: #969799;
+    font-size: 14px;
+    overflow: hidden;
+    transition: all 200;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}

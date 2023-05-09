@@ -1,9 +1,14 @@
 {
-  "extends": ["taro/react"],
+  "extends": ["taro/react", "plugin:prettier/recommended"],
   "rules": {
     "react/jsx-uses-react": "off",
     "react/react-in-jsx-scope": "off",
     "jsx-quotes": "off",
-    "import/no-commonjs": "off"
+    "import/no-commonjs": "off",
+    "react-hooks/rules-of-hooks": "off",
+    "@typescript-eslint/no-shadow": "off",
+    "react/jsx-boolean-value": "off",
+    "react-hooks/exhaustive-deps": "off",
+    "react/no-unused-state": "off"
   }
 }

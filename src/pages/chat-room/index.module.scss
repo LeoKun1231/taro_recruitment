@@ -1,0 +1,63 @@
+.myInput {
+  :global(.taro-textarea) {
+    resize: none !important;
+  }
+}
+.chat {
+  :global(.bubble) {
+    position: relative;
+    left: 16px;
+    top: 2px;
+    background: #fff;
+    -moz-border-radius: 12px;
+    -webkit-border-radius: 12px;
+    border-radius: 12px;
+  }
+
+  :global(.bubble::after) {
+    position: absolute;
+    content: '';
+    width: 0;
+    height: 0;
+    right: 100%;
+    top: 10px;
+    border-top: 5px solid transparent;
+    border-right: 10px solid #fff;
+    border-bottom: 5px solid transparent;
+  }
+  :global(.bubbleLeft) {
+    position: relative;
+    right: 16px;
+    top: 2px;
+    -moz-border-radius: 12px;
+    -webkit-border-radius: 12px;
+    border-radius: 12px;
+  }
+
+  :global(.bubbleLeft::after) {
+    position: absolute;
+    content: '';
+    width: 0;
+    height: 0;
+    left: 100%;
+    top: 10px;
+    border-top: 5px solid transparent;
+    border-left: 10px solid rgb(96, 165, 250);
+    border-bottom: 5px solid transparent;
+  }
+  :global(.van-power-scroll-view__loading) {
+    display: none;
+  }
+}
+
+.chatScrollViewWeapp{
+  padding-bottom: 70px;
+  height: calc(100vh - 70px);
+  background: #efefef;
+}
+.chatScrollViewH5{
+  padding-bottom: 70px;
+  padding-top: 50px;
+  height: calc(100vh - 120px);
+  background: #efefef;
+}

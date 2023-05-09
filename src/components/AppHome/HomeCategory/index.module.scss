@@ -1,0 +1,19 @@
+.homeCategory {
+  :global {
+    --tree-select-item-active-color: #1890ff;
+    --sidebar-selected-border-color: #1890ff;
+    .van-tree-select__item {
+      color: #555;
+      border-bottom-color: #eee;
+      border-bottom-width: 1px;
+      border-bottom-style: solid;
+    }
+    .van-tree-select__item--active {
+      color: #1890ff !important;
+    }
+    .van-tree-select {
+      padding-bottom: 58px;
+      height: 92vh !important;
+    }
+  }
+}

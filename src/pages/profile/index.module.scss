@@ -1,0 +1,21 @@
+.avatar {
+  .van-uploader__preview {
+    width: 50px !important;
+    height: 50px !important;
+    overflow: hidden;
+  }
+}
+.uploader {
+  :global(.van-uploader__preview-image) {
+    width: 50px !important;
+    height: 50px !important;
+    border-radius: 50%;
+  }
+  :global(.van-uploader__mask-message) {
+    width: 50px !important;
+  }
+  :global(.taro-img__mode-aspectfill) {
+    width: 50px !important;
+    height: 50px !important;
+  }
+}

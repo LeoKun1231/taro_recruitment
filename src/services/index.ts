@@ -12,3 +12,4 @@ const { BASE_URL, TIME_OUT } = getBaseUrlAndTimeout()
 const appRequest = new AppRequest(BASE_URL, TIME_OUT)
 
 export default appRequest
+export * from './modules'

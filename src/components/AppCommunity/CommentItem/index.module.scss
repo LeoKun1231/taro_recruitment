@@ -1,0 +1,18 @@
+.myInput {
+  :global(.van-field__control--textarea) {
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  :global(.taro-textarea) {
+    resize: none !important;
+    color: #999;
+    background: #eee;
+  }
+}
+.message {
+  -webkit-line-clamp: 2;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

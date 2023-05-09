@@ -1,0 +1,14 @@
+.login {
+  --button-normal-height: 48px !important;
+}
+
+.password {
+  height: 100vh;
+  overflow: hidden;
+  --form-line-height: 48px !important;
+  --cell-background-color: #f8f8f8 !important;
+}
+
+.code {
+  --cell-background-color: #f8f8f8 !important;
+}

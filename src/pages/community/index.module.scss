@@ -1,0 +1,16 @@
+.community{
+  height:100vh;
+  overflow: hidden;
+  :global(.van-tabs){
+    height: calc(100vh - 55px);
+  }
+  :global(.van-tab__pane){
+    height: calc(100vh - 44px - 55px);
+  }
+  :global(.van-tabs__content){
+    height: calc(100vh - 44px - 55px);
+  }
+  :global(.van-tabs__track){
+    height: calc(100vh - 44px - 55px);
+  }
+}

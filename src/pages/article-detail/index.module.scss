@@ -1,0 +1,71 @@
+.articleDetail {
+  width: 100%;
+  word-break: break-all;
+  img {
+    max-width: 100% !important;
+    object-fit: scale-down !important;
+    overflow-x: auto;
+  }
+  :global(.h5-pre) {
+    background: #f5f2f0 !important;
+    overflow-x: auto;
+    padding: 10px 6px !important;
+    color: '#666';
+  }
+  :global(.h5-p) {
+    overflow-x: auto;
+  }
+  p,
+  li {
+    white-space: pre-wrap; /* 保留空格 */
+  }
+  blockquote {
+    border-left: 8px solid #d0e5f2;
+    padding: 10px 10px;
+    margin: 10px 0;
+    background-color: #f1f1f1;
+  }
+
+  table {
+    border-collapse: collapse;
+    overflow-x: scroll;
+  }
+  td,
+  th {
+    border: 1px solid #ccc;
+    min-width: 50px;
+    height: 20px;
+  }
+  th {
+    background-color: #f1f1f1;
+  }
+
+  ul,
+  ol {
+    padding-left: 20px;
+  }
+
+  input[type='checkbox'] {
+    margin-right: 5px;
+  }
+}
+.myInput {
+  width: 100%;
+  :global(.taro-textarea) {
+    width: 100%;
+    resize: none !important;
+    color: #999;
+    background: #eee;
+  }
+}
+.contentWEB {
+  padding-top: 50px;
+  padding-bottom: 53px;
+  overflow-y: auto;
+  height: calc(100vh - 50px - 53px);
+}
+.contentWeapp {
+  padding-bottom: 53px;
+  overflow-y: auto;
+  height: calc(100vh - 53px);
+}

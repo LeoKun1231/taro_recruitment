@@ -2,39 +2,16 @@
  * @Author: hqk
  * @Date: 2023-02-11 19:20:32
  * @LastEditors: hqk
- * @LastEditTime: 2023-02-12 11:02:32
+ * @LastEditTime: 2023-04-27 10:20:44
  * @Description:
  */
 
 import Taro from '@tarojs/taro'
+import store from '@/store'
+import { error, success } from '@/utils'
 
 class AppRequest {
   constructor(private BASE_URL: string, private TIME_OUT: number) {}
-
-  private interceptor(chain: Taro.Chain) {
-    const requestParams = chain.requestParams
-    Taro.showLoading({
-      title: '加载中...',
-    })
-    let token = Taro.getStorageSync('token') //拿到本地缓存中存的token
-    if (token) {
-      requestParams.header = {
-        ...requestParams.header,
-        Authorization: 'Bearer ' + token, //将token添加到头部
-      }
-    }
-    return chain
-      .proceed(requestParams)
-      .then((res) => {
-        Taro.hideLoading()
-        return res
-      })
-      .catch((err) => {
-        Taro.hideLoading()
-        console.error(err)
-        return Promise.reject(err)
-      })
-  }
 
   request<T = any>(options: Taro.request.Option) {
     //判断url路径是否完整
@@ -44,21 +21,80 @@ class AppRequest {
     } else {
       url = this.BASE_URL + options.url
     }
-
-    //添加拦截器
-    Taro.addInterceptor(this.interceptor)
+    Taro.showToast({
+      title: '加载中...',
+      icon: 'loading'
+    })
     return new Promise<T>((resolve, reject) => {
-      Taro.request({
-        timeout: this.TIME_OUT,
-        ...options,
-        url,
-        success(res) {
-          resolve(res.data)
-        },
-        fail(err) {
-          reject(err)
-        },
-      })
+      const token = store.getState().login?.loginUser?.token
+      if (token) {
+        Taro.request({
+          timeout: this.TIME_OUT,
+          mode: 'cors',
+          ...options,
+          header: {
+            Authorization: 'Bearer ' + token //将token添加到头部
+          },
+          url,
+          success(res) {
+            const { data } = res
+            Taro.hideToast({ noConflict: true })
+            if ((data?.code == 20000 || data?.code == 500) && data?.message) {
+              error(data.message)
+            } else if (data?.code == 200 && data?.message) {
+              //成功提示
+              success(data.message)
+            } else if (data.code == 30001) {
+              Taro.showModal({
+                content: '登录过期，请重新登录',
+                showCancel: false,
+                success() {
+                  Taro.redirectTo({
+                    url: '/pages/login/index'
+                  })
+                }
+              })
+            }
+            resolve(res.data)
+          },
+          fail(err) {
+            error('网络错误,请重试')
+            reject(err)
+          }
+        })
+      } else {
+        Taro.request({
+          timeout: this.TIME_OUT,
+          mode: 'cors',
+          ...options,
+          url,
+          success(res) {
+            const { data } = res
+            Taro.hideToast({ noConflict: true })
+            if ((data?.code == 20000 || data?.code == 500) && data?.message) {
+              error(data.message)
+            } else if (data?.code == 200 && data?.message) {
+              //成功提示
+              success(data.message)
+            } else if (data.code == 30001) {
+              Taro.showModal({
+                content: '登录过期，请重新登录',
+                showCancel: false,
+                success() {
+                  Taro.redirectTo({
+                    url: '/pages/login/index'
+                  })
+                }
+              })
+            }
+            resolve(res.data)
+          },
+          fail(err) {
+            error('网络错误,请重试')
+            reject(err)
+          }
+        })
+      }
     })
   }
   get<T = any>(options: Taro.request.Option) {

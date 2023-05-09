@@ -1,0 +1,15 @@
+.myInput {
+  width: 100%;
+  :global(.taro-textarea) {
+    width: 100%;
+    resize: none !important;
+    color: #999;
+    background: #eee;
+  }
+}
+
+.content{
+  padding-top: 50px;
+  overflow-y: auto;
+  height: calc(100vh - 50px - 53px);
+}

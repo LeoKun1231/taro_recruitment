@@ -1,0 +1,16 @@
+.myInput {
+  :global(.van-field__control--textarea) {
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  :global(.taro-textarea) {
+    resize: none !important;
+    color: #999;
+    background: #eee;
+  }
+}
+.dialog {
+  :global(.van-popup) {
+    z-index: 1204 !important;
+  }
+}
