@@ -9,6 +9,7 @@ export interface IConversationList {
 }
 
 export interface IMessage {
+  conversationID: string
   id: string
   flow: 'in' | 'out' //是否进来的
   text: string

@@ -2,7 +2,7 @@
  * @Author: hqk
  * @Date: 2023-02-13 11:06:53
  * @LastEditors: hqk
- * @LastEditTime: 2023-05-09 10:53:36
+ * @LastEditTime: 2023-05-11 22:26:53
  * @Description:
  */
 import React, { memo, useEffect } from 'react'
@@ -69,29 +69,39 @@ const App: FC<IProps> = (props) => {
       store.dispatch(changeConversationListAction(list))
     })
     let onMessageReceived = function (event) {
-      const text = res?.getTotalUnreadMessageCount().toString()
-      if (text == '0') {
-        Taro.hideTabBarRedDot({
-          index: 2
-        })
-      } else {
-        Taro.setTabBarBadge({
-          index: 2,
-          text: text as any
-        })
+      const pages = Taro.getCurrentPages()
+      const currentPage = pages[pages.length - 1]
+      if (
+        currentPage.route == 'pages/home/index' ||
+        currentPage.route == 'pages/community/index' ||
+        currentPage.route == 'pages/chat/index' ||
+        currentPage.route == 'pages/mine/index'
+      ) {
+        const text = res.getTotalUnreadMessageCount().toString() as string
+        if (text != '0') {
+          Taro.setTabBarBadge({
+            index: 2,
+            text: text as any
+          })
+        } else {
+          Taro.hideTabBarRedDot({
+            index: 2
+          })
+        }
       }
 
       // event.data - 存储 Message 对象的数组 - [Message]
-      const messageList = event.data
+      const messageList1 = event.data
       messageEvent.emit()
-      messageList.forEach((message) => {
+      messageList1.forEach((message) => {
         if (message.type === TIM.TYPES.MSG_TEXT) {
           const list = store.getState().chat.messageList
-          if (router.params.id != message.conversationID) return
+          if (list[0].conversationID != message.conversationID) return
           store.dispatch(
             changeMessageAction([
               ...list,
               {
+                conversationID: message.conversationID,
                 id: message.ID,
                 flow: message.flow,
                 text: message.payload.text,

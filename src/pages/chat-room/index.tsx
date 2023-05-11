@@ -9,7 +9,7 @@ import React, { memo, useContext, useEffect, useState } from 'react'
 import type { FC, ReactNode } from 'react'
 import User from '@/assets/img/user.png'
 import classNames from 'classnames'
-import { changeConversationListAction, changeMessageAction } from '@/store/modules/chat'
+import { changeConversationListAction, changeMessageAction, changeRouterIdAction } from '@/store/modules/chat'
 import { useAppDispatch, useAppSelector, useAppShallowEqual } from '@/hooks'
 import TIM from 'tim-wx-sdk'
 import { error } from '@/utils'
@@ -80,6 +80,7 @@ const ChatRoom: FC<IProps> = () => {
       }
       const items = messageList.map((item) => {
         return {
+          conversationID: item.conversationID,
           id: item.ID,
           flow: item.flow,
           text: item.payload.text,
@@ -228,6 +229,7 @@ const ChatRoom: FC<IProps> = () => {
     }
     const items = messages.map((item) => {
       return {
+        conversationID: item.conversationID,
         id: item.ID,
         flow: item.flow,
         text: item.payload.text,
@@ -249,8 +251,6 @@ const ChatRoom: FC<IProps> = () => {
       setIsFirst(true)
     }
   }, [])
-
-  useEffect(() => {}, [])
 
   return (
     <View className="h-100vh overflow-hidden">

@@ -1,7 +1,7 @@
 import { Text, View } from '@tarojs/components'
 import React, { ElementRef, memo, useEffect, useRef } from 'react'
 import type { FC, ReactNode } from 'react'
-import Taro, { useDidHide, useDidShow, useReachBottom, useRouter } from '@tarojs/taro'
+import Taro, { nextTick, useDidHide, useDidShow, useReachBottom, useRouter } from '@tarojs/taro'
 import AppTitle from '@/components/AppTitle'
 import { useMemoizedFn, useSafeState } from 'ahooks'
 import { IDetailJobList, IHomeCompanyDetail } from '@/types'
@@ -123,7 +123,7 @@ const CompanyDetail: FC<IProps> = () => {
     if (address.length > 0) {
       setTimeout(() => {
         appMapRef.current?.setAddress({ latitude: address[1], longitude: address[0] })
-      }, 1000)
+      }, 3000)
     }
   })
 

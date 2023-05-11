@@ -11,11 +11,13 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 interface IState {
   conversationList: IConversationList[]
   messageList: IMessage[]
+  routerId: string
 }
 
 const initialState = {
   conversationList: [],
-  messageList: []
+  messageList: [],
+  routerId: ''
 } as IState
 
 const chatSlice = createSlice({
@@ -28,12 +30,16 @@ const chatSlice = createSlice({
     changeMessageAction(state, { payload }: PayloadAction<IMessage[]>) {
       state.messageList = payload
     },
+    changeRouterIdAction(state, { payload }: PayloadAction<string>) {
+      state.routerId = payload
+    },
     clearChatAction(state) {
       state.conversationList = []
       state.messageList = []
+      state.routerId = ''
     }
   }
 })
 
 export default chatSlice.reducer
-export const { changeConversationListAction, clearChatAction, changeMessageAction } = chatSlice.actions
+export const { changeConversationListAction, clearChatAction, changeMessageAction, changeRouterIdAction } = chatSlice.actions
