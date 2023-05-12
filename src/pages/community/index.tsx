@@ -108,7 +108,7 @@ const Community: FC<IProps> = () => {
           </View>
         }
       />
-      <Tabs color="#007aff" onChange={handleTabChange}>
+      <Tabs color="#007aff" swipeable sticky onChange={handleTabChange}>
         {types.map((item, index) => {
           return (
             <Tab title={item} key={item}>

@@ -32,8 +32,11 @@ const ChatRoom: FC<IProps> = () => {
   const [isFinish, setIsFinish] = useSafeState(false)
   const [scrollTop, setTop] = useSafeState(0)
   const [isFirst, setIsFirst] = useSafeState(true)
-  const onscroll = (e) => setTop(e.detail?.scrollTop)
+
+  const onscroll = useMemoizedFn((e) => setTop(e.detail?.scrollTop))
+
   const dispatch = useAppDispatch()
+
   const { messageList, conversationList } = useAppSelector((state) => {
     return {
       messageList: state.chat.messageList,
@@ -42,6 +45,9 @@ const ChatRoom: FC<IProps> = () => {
   }, useAppShallowEqual)
 
   const messageEvent = useContext(MessageEventContext)
+  /**
+   * 监听消息，收到消息回到底部
+   */
   messageEvent?.useSubscription(() => {
     Taro.nextTick(() => {
       if (Taro.getEnv() == Taro.ENV_TYPE.WEB) {
@@ -107,6 +113,8 @@ const ChatRoom: FC<IProps> = () => {
       list.forEach((item) => {
         if (item.id == router.params.id) {
           item.name = userProfile.nick
+          //将未读消息置空
+          item.unread = 0
         }
       })
       dispatch(changeConversationListAction(list))
@@ -123,18 +131,6 @@ const ChatRoom: FC<IProps> = () => {
 
   useEffect(() => {
     tim?.setMessageRead({ conversationID: router.params.id })
-    const pages = Taro.getCurrentPages()
-    const currentPage = pages[pages.length - 1]
-    if (
-      currentPage.route == 'pages/home/index' ||
-      currentPage.route == 'pages/community/index' ||
-      currentPage.route == 'pages/chat/index' ||
-      currentPage.route == 'pages/mine/index'
-    ) {
-      Taro.hideTabBarRedDot({
-        index: 2
-      })
-    }
   }, [messageList])
 
   const onMessageChange = useMemoizedFn((e) => {

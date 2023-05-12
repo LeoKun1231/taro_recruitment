@@ -10,7 +10,6 @@ import { Icon, Image } from '@antmjs/vantui'
 import { View } from '@tarojs/components'
 import React, { memo } from 'react'
 import type { FC, ReactNode } from 'react'
-import User from '@/assets/img/user.png'
 import { timeago } from '@/utils/date'
 
 interface IProps {

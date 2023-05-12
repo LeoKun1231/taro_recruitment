@@ -2,7 +2,7 @@
  * @Author: hqk
  * @Date: 2023-02-13 11:06:53
  * @LastEditors: hqk
- * @LastEditTime: 2023-05-11 22:26:53
+ * @LastEditTime: 2023-05-12 17:49:42
  * @Description:
  */
 import React, { memo, useEffect } from 'react'
@@ -44,7 +44,7 @@ const init = async () => {
 }
 let timer: any = null
 const App: FC<IProps> = (props) => {
-  const [myTim, setTim] = useSafeState()
+  const [myTim, setTim] = useSafeState<any>()
 
   const router = useRouter()
 
@@ -71,23 +71,23 @@ const App: FC<IProps> = (props) => {
     let onMessageReceived = function (event) {
       const pages = Taro.getCurrentPages()
       const currentPage = pages[pages.length - 1]
-      if (
-        currentPage.route == 'pages/home/index' ||
-        currentPage.route == 'pages/community/index' ||
-        currentPage.route == 'pages/chat/index' ||
-        currentPage.route == 'pages/mine/index'
-      ) {
-        const text = res.getTotalUnreadMessageCount().toString() as string
-        if (text != '0') {
-          Taro.setTabBarBadge({
-            index: 2,
-            text: text as any
-          })
-        } else {
-          Taro.hideTabBarRedDot({
-            index: 2
-          })
-        }
+      // if (
+      //   currentPage.route == '/pages/home/index' ||
+      //   currentPage.route == '/pages/community/index' ||
+      //   currentPage.route == '/pages/chat/index' ||
+      //   currentPage.route == '/pages/mine/index'
+      // ) {
+      const text = res.getTotalUnreadMessageCount().toString() as string
+      if (text != '0') {
+        // Taro.setTabBarBadge({
+        //   index: 2,
+        //   text: text as any
+        // })
+      } else {
+        // Taro.hideTabBarRedDot({
+        //   index: 2
+        // })
+        // }
       }
 
       // event.data - 存储 Message 对象的数组 - [Message]
@@ -114,34 +114,6 @@ const App: FC<IProps> = (props) => {
         }
       })
     }
-    if (timer) clearInterval(timer)
-    timer = setInterval(() => {
-      if (router.path == '/pages/login/index') {
-        clearInterval(timer)
-        return
-      }
-      //获取未读
-      const pages = Taro.getCurrentPages()
-      const currentPage = pages[pages.length - 1]
-      if (
-        currentPage.route == 'pages/home/index' ||
-        currentPage.route == 'pages/community/index' ||
-        currentPage.route == 'pages/chat/index' ||
-        currentPage.route == 'pages/mine/index'
-      ) {
-        const text = res.getTotalUnreadMessageCount().toString() as string
-        if (text != '0') {
-          Taro.setTabBarBadge({
-            index: 2,
-            text: text as any
-          })
-        } else {
-          Taro.hideTabBarRedDot({
-            index: 2
-          })
-        }
-      }
-    }, 1000)
     const promise = res.getMyProfile()
     promise.then(function (imResponse) {
       const { nick } = imResponse.data
@@ -162,6 +134,48 @@ const App: FC<IProps> = (props) => {
       loadData()
     }
   }, [store.getState()?.login?.loginUser?.id])
+
+  // useEffect(() => {
+  //   console.log(myTim, '===')
+  //   if (myTim) {
+  //     if (timer) clearInterval(timer)
+  //     timer = setInterval(() => {
+  //       if (router.path == '/pages/login/index' || router.path == 'pages/login/index') {
+  //         clearInterval(timer)
+  //         return
+  //       }
+  //       //获取未读
+  //       const pages = Taro.getCurrentPages()
+  //       const currentPage = pages[pages.length - 1]
+  //       if (
+  //         currentPage.route == '/pages/home/index' ||
+  //         currentPage.route == '/pages/community/index' ||
+  //         currentPage.route == '/pages/chat/index' ||
+  //         currentPage.route == '/pages/mine/index' ||
+  //         currentPage.route == 'pages/home/index' ||
+  //         currentPage.route == 'pages/community/index' ||
+  //         currentPage.route == 'pages/chat/index' ||
+  //         currentPage.route == 'pages/mine/index'
+  //       ) {
+  //         console.log('11111111111111111111111111111111111111')
+  //         const text = myTim.getTotalUnreadMessageCount().toString() as string
+  //         if (text != '0') {
+  //           Taro.setTabBarBadge({
+  //             index: 2,
+  //             text: text as any
+  //           })
+  //         } else {
+  //           console.log('2222222222222222222')
+
+  //           Taro.setTabBarBadge({
+  //             index: 2,
+  //             text: ''
+  //           })
+  //         }
+  //       }
+  //     }, 1000)
+  //   }
+  // }, [myTim])
 
   return (
     <Provider store={store}>

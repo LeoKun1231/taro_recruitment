@@ -2,7 +2,7 @@
  * @Author: hqk
  * @Date: 2023-04-19 16:13:34
  * @LastEditors: hqk
- * @LastEditTime: 2023-04-27 11:27:15
+ * @LastEditTime: 2023-05-12 17:55:58
  * @Description:
  */
 import { View } from '@tarojs/components'
@@ -44,6 +44,7 @@ const Resume: FC<IProps> = () => {
     if (res.code == 200) {
       const { data } = res
       setResumeURL(data.url)
+    } else {
     }
   })
 
@@ -66,6 +67,9 @@ const Resume: FC<IProps> = () => {
       .then((res) => {
         if (res.code == 200) {
           loadResume()
+          success('上传简历成功')
+        } else {
+          error('上传简历失败')
         }
       })
   })
@@ -121,7 +125,10 @@ const Resume: FC<IProps> = () => {
             const res = JSON.parse(data)
             //do something
             if (res.code === 200) {
+              success('上传简历成功')
               loadResume()
+            } else {
+              error('上传简历失败')
             }
           }
         })
