@@ -8,7 +8,7 @@
 import { View } from '@tarojs/components'
 import React, { memo, useEffect } from 'react'
 import type { FC, ReactNode } from 'react'
-import { useMemoizedFn, useSafeState } from 'ahooks'
+import { useLatest, useMemoizedFn, useSafeState } from 'ahooks'
 import { IHomeJobList } from '@/types'
 import { useAppDispatch } from '@/hooks'
 import { getHomeJobListAction, getHotJobListAction } from '@/store'
@@ -28,28 +28,31 @@ const HomeJob: FC<IProps> = (props) => {
   const { type, tab } = props
 
   const [currentPage, setCurrentPage] = useSafeState(1)
+
+  const currentPageLastest = useLatest(currentPage)
+
   const [pageSize, setPageSize] = useSafeState(6)
   const [count, setCount] = useSafeState(0)
   const [dataList, setDataList] = useSafeState<IHomeJobList[]>([])
 
   const dispatch = useAppDispatch()
 
-  const loadHotCompanyList = useMemoizedFn(async (current: number) => {
+  const loadHotJobList = useMemoizedFn(async (current: number) => {
     const res = await dispatch(getHotJobListAction({ currentPage: current, pageSize })).unwrap()
     if (res.code == 200) {
       setDataList((c) => [...c, ...res.data.records])
       setCount(res.data.totalCount)
     }
-    setCurrentPage(currentPage + 1)
+    setCurrentPage(currentPageLastest.current + 1)
   })
 
-  const loadCategoryCompanyList = useMemoizedFn(async (current: number) => {
+  const loadCategoryJobList = useMemoizedFn(async (current: number) => {
     const res = await dispatch(getHomeJobListAction({ currentPage: current, pageSize, type: type! })).unwrap()
     if (res.code == 200) {
       setDataList((c) => [...c, ...res.data.records])
       setCount(res.data.totalCount)
     }
-    setCurrentPage(currentPage + 1)
+    setCurrentPage(currentPageLastest.current + 1)
   })
 
   useEffect(() => {
@@ -57,16 +60,18 @@ const HomeJob: FC<IProps> = (props) => {
     setCurrentPage(1)
     setDataList([])
     if (type == '热门') {
-      loadHotCompanyList(1)
+      loadHotJobList(1)
     } else {
-      loadCategoryCompanyList(1)
+      loadCategoryJobList(1)
     }
   }, [type])
 
   useReachBottom(() => {
     if (dataList.length != count && tab == 'job') {
       if (type == '热门') {
-        loadHotCompanyList(currentPage)
+        loadHotJobList(currentPageLastest.current)
+      } else {
+        loadCategoryJobList(currentPageLastest.current)
       }
     }
   })

@@ -2,17 +2,17 @@
  * @Author: hqk
  * @Date: 2023-04-17 17:21:10
  * @LastEditors: hqk
- * @LastEditTime: 2023-05-10 13:30:15
+ * @LastEditTime: 2023-05-15 10:56:06
  * @Description:
  */
 export default defineAppConfig({
   pages: [
+    'pages/home/index',
     'pages/login/index',
     'pages/community/index',
     'pages/chat/index',
     'pages/resume/index',
     'pages/mine/index',
-    'pages/home/index',
     'pages/profile/index',
     'pages/reset-password/index',
     'pages/chat-room/index',

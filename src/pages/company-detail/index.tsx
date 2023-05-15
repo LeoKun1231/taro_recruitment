@@ -123,7 +123,7 @@ const CompanyDetail: FC<IProps> = () => {
     if (address.length > 0) {
       setTimeout(() => {
         appMapRef.current?.setAddress({ latitude: address[1], longitude: address[0] })
-      }, 3000)
+      }, 5000)
     }
   })
 

@@ -42,6 +42,9 @@ const Home: FC<IProps> = () => {
       setJobType('热门')
     }
     setType(e.detail.index == 0 ? 'company' : 'job')
+    Taro.pageScrollTo({
+      scrollTop: 0
+    })
   })
 
   const dispatch = useAppDispatch()
@@ -55,11 +58,6 @@ const Home: FC<IProps> = () => {
 
   useEffect(() => {
     loadImages()
-  }, [])
-
-  useEffect(() => {
-    if (type == 'company') {
-    }
   }, [])
 
   useDidShow(() => {

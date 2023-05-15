@@ -9,7 +9,7 @@ import { useAppDispatch } from '@/hooks'
 import { getHomeCompanyListAction, getHotCompanyListAction } from '@/store'
 import { IHomeCompanyList } from '@/types'
 import { View } from '@tarojs/components'
-import { useMemoizedFn, useSafeState } from 'ahooks'
+import { useLatest, useMemoizedFn, useSafeState } from 'ahooks'
 import React, { memo, useEffect } from 'react'
 import type { FC, ReactNode } from 'react'
 import { PowerScrollView, Divider } from '@antmjs/vantui'
@@ -28,6 +28,9 @@ const HomeCompany: FC<IProps> = (props) => {
   const { type, tab } = props
 
   const [currentPage, setCurrentPage] = useSafeState(1)
+
+  const currentPageLastest = useLatest(currentPage)
+
   const [pageSize, setPageSize] = useSafeState(6)
   const [count, setCount] = useSafeState(0)
   const [dataList, setDataList] = useSafeState<IHomeCompanyList[]>([])
@@ -40,7 +43,7 @@ const HomeCompany: FC<IProps> = (props) => {
       setDataList((c) => [...c, ...res.data.records])
       setCount(res.data.totalCount)
     }
-    setCurrentPage(currentPage + 1)
+    setCurrentPage(currentPageLastest.current + 1)
   })
 
   const loadCategoryCompanyList = useMemoizedFn(async (current: number) => {
@@ -49,7 +52,7 @@ const HomeCompany: FC<IProps> = (props) => {
       setDataList((c) => [...c, ...res.data.records])
       setCount(res.data.totalCount)
     }
-    setCurrentPage(currentPage + 1)
+    setCurrentPage(currentPageLastest.current + 1)
   })
 
   useEffect(() => {
@@ -66,7 +69,9 @@ const HomeCompany: FC<IProps> = (props) => {
   useReachBottom(() => {
     if (dataList.length != count && tab == 'company') {
       if (type == '热门') {
-        loadHotCompanyList(currentPage)
+        loadHotCompanyList(currentPageLastest.current)
+      } else {
+        loadCategoryCompanyList(currentPageLastest.current)
       }
     }
   })

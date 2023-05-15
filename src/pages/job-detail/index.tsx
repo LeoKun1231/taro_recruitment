@@ -2,7 +2,7 @@
  * @Author: hqk
  * @Date: 2023-04-22 17:23:34
  * @LastEditors: hqk
- * @LastEditTime: 2023-05-01 17:03:13
+ * @LastEditTime: 2023-05-15 13:54:30
  * @Description:
  */
 import AppMap from '@/components/AppMap'
@@ -175,7 +175,7 @@ const JobDetail: FC<IProps> = () => {
     if (address.length > 0) {
       setTimeout(() => {
         appMapRef.current?.setAddress({ latitude: address[1], longitude: address[0] })
-      }, 1000)
+      }, 5000)
     }
   })
 
