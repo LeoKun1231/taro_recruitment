@@ -158,6 +158,11 @@ const Profile: FC<IProps> = () => {
     setValue([])
   })
 
+  // const handleBeforeRead = useMemoizedFn((e) => {
+  //   // callBack()
+  //   console.log(e)
+  // })
+
   return (
     <View className="bg-[#f4f5f7]">
       <AppTitle title="个人资料" />
@@ -170,6 +175,8 @@ const Profile: FC<IProps> = () => {
               maxCount={1}
               deletable={false}
               accept="image"
+              // useBeforeRead={true}
+              // beforeRead={handleBeforeRead}
               onAfterRead={afterRead}
               className={classNames({ 'center !display-block': true, [styled.uploader]: true })}
             >

@@ -2,7 +2,7 @@
  * @Author: hqk
  * @Date: 2023-04-19 16:13:34
  * @LastEditors: hqk
- * @LastEditTime: 2023-05-12 17:55:58
+ * @LastEditTime: 2023-05-18 20:15:11
  * @Description:
  */
 import { View } from '@tarojs/components'
@@ -15,9 +15,7 @@ import { useMemoizedFn, useSafeState } from 'ahooks'
 import { Button, Empty, Uploader } from '@antmjs/vantui'
 import AppTitle from '@/components/AppTitle'
 import getBaseUrlAndTimeout from '@/services/config'
-import classNames from 'classnames'
 import { error, getFileType, success } from '@/utils'
-import { changeResumeURLAction } from '@/store/modules/info'
 
 import styled from './index.module.scss'
 
@@ -61,6 +59,17 @@ const Resume: FC<IProps> = () => {
       error('请上传pdf格式的文件')
       return
     }
+
+    /**
+     * 限制文件大小
+     */
+    // const fileSize = e.nativeEvent?.target?.files[0]?.size
+    // const size = fileSize / 1024 / 1024
+    // if (size > 10) {
+    //   error('简历大小不能大于10M')
+    //   return
+    // }
+
     formData.append('file', e.nativeEvent.target.files[0])
     dispatch(uploadResumeAction(formData))
       .unwrap()
@@ -113,6 +122,14 @@ const Resume: FC<IProps> = () => {
           error('请上传pdf格式的文件')
           return
         }
+
+        // const fileSize = temp[0].size
+        // const size = fileSize / 1024 / 1024
+        // if (size > 10) {
+        //   error('不能大于10M')
+        //   return
+        // }
+
         Taro.uploadFile({
           url: getBaseUrlAndTimeout().BASE_URL + '/home/upload/resume', //仅为示例，非真实的接口地址
           filePath: temp[0].path,

@@ -4,8 +4,8 @@
       "prismjs",
       {
         "languages": [
-          "markup",
           "css",
+          "markup",
           "bash",
           "basic",
           "c",
